@@ -1,10 +1,14 @@
+/*
+ * Leaks check $ valgrind --leak-check=full ./game
+ * */
+
 // for ncurses linking
 #define _XOPEN_SOURCE_EXTENDED 1
 #define _GNU_SOURCE
 
 #include <stdio.h>
 #include <curses.h>
-#include <ncurses.h>
+//#include <ncurses.h>
 #include <stdlib.h>
 #include <signal.h>
 #include <locale.h>
@@ -21,8 +25,15 @@
 #define BORDER_VERTICAL L"\u2551"     // ║
 
 
+int width_screen, height_screen;
+int x_cursor = 10, y_cursor = 10;
+int run = 1;
+
+void handle_input();
+
 void render_border(WINDOW *window) {
-    int width_screen, height_screen;
+    start_color();
+    init_pair(GREEN_CHAR_PAIR, COLOR_GREEN, COLOR_BLACK);
     getmaxyx(window, height_screen, width_screen);
     attron(COLOR_PAIR(GREEN_CHAR_PAIR));
     // Corners
@@ -46,118 +57,60 @@ void render_border(WINDOW *window) {
 
 void render_screen() {
     stdscr = initscr();
-//    raw();
-//    keypad(stdscr, TRUE);
+    keypad(stdscr, TRUE);
     noecho();
-
-//    for(int i = 0; i < 6; i++){
-//        mvaddwstr(1, i, L"\u2550");
-//    }
     clear();
     refresh();
-    start_color();
-
-    init_pair(GREEN_CHAR_PAIR, COLOR_GREEN, COLOR_BLACK);
-//    printf("%ls", L"\u2563\n");
-//    printf( "%ls", L"\u2563");
     render_border(stdscr);
     curs_set(0);
 
+    handle_input();
+}
 
-//    mvaddnwstr(0,0, star, -1);
-//    mvwaddnwstr(stdscr, 1,1, star, 10);
-//    add_wchstr(WACS_D_ULCORNER);
-//    add_wchstr(WACS_D_WLINE);
-//    add_wchstr(WACS_D_ULCORNER);
-//    add_wchstr(WACS_D_ULCORNER);
-//    add_wchstr(WACS_D_ULCORNER);
-//    mvwadd_wchnstr(stdscr,0,2, WACS_D_HLINE,10);
-//    mvaddwstr(0, 0, WACS_D_ULCORNER);
-//    printw("h %d, w %d", height_screen, width_screen);
-//    const wchar_t* star = L"\x2551";
-
-
-
-
-
-//     should fill the left half of the
-    // terminal window with filled block characters
-//    int i, j;
-//    for (i = 0; i < height_screen; i++) {
+void handle_input() {
+    while (run) {
+        int c = getch();
+        if (c == KEY_UP) {
+//            int myIntValue = 20;
+//            wchar_t m_reportFileName[256];
 //
-//        for (j = 0; j < width_screen; j++) {
-//            attron(COLOR_PAIR(GREEN_CHAR_PAIR));
-//            mvaddch(i, j, L'\u2550');
-//        }
-//    }
-
-//    init_pair(2, COLOR_BLACK, COLOR_GREEN);
-
-//    attron(COLOR_PAIR(1));
-//    mvaddch(0, 0, '*');
+//            swprintf_s(m_reportFileName, L"%d", myIntValue);
 //
-//    wattron(stdscr, COLOR_PAIR(1));
-//    mvwprintw(stdscr,1,1,"colored text");
-//    printw("This should be printed in black with a red background!\n");
+//            wprintf(L"%s\n", m_reportFileName);
+            mvprintw(x_cursor, y_cursor, "%d", 'a');
+//            getch();
+        }
 
-//    attron(COLOR_PAIR(2));
-//    printw("And this in a green background!\n");
-//    for(int i = 0; i < 10; i++){
-//        mvaddch(0, i, L'\u2592');
-//    }
-//    mvaddch(0,0, L'\u2605');
-//    printf(ANSI_COLOR_GREEN "\u2550\u2550\u2550\u2550\n");
-//    const chtype * s =
-//    border()
-//    wborder(stdscr, WACS_D_ULCORNER, '#', '#', '#', '#', '#', '#', '#'); //Draw border
-//    printw((const char *) L'\u2592');
-//    printf("Hello МирЪ !!! 播 \n");
-//    const wchar_t *wstr = L"<\u2550\u2550\u2550>";
+        if (c == KEY_DOWN) {
+            mvprintw(x_cursor, y_cursor, "%d", 'b');
+        }
 
-//    mvwaddwstr(stdscr, 0, 0, wstr);
-//    addchstr(L'\u2592');
-//      234", "\u1234", "\u1234", "\u1234" );
-    getch();
+        if (c == KEY_LEFT) {
+            mvprintw(x_cursor, y_cursor, "%d", 'c');
+        }
+
+        if (c == KEY_RIGHT) {
+            mvprintw(x_cursor, y_cursor, "%d", 'd');
+        } else {
+            mvprintw(x_cursor, y_cursor, "%d", c);
+        }
+
+    }
 }
 
 
 void do_resize(int dummy) {
     endwin();
     render_screen();
-
-//    printf("dummy %d", dummy);
 }
 
 int main() {
     setlocale(LC_ALL, "");
+
     render_screen();
     signal(SIGWINCH, do_resize);
+
     getch();
     endwin();                  // close ncurses
     return 0;
 }
-
-
-
-//int main() {
-//    setlocale(LC_ALL, ""); // must be caled before initscr
-//    WINDOW *win = initscr();
-//
-//    int w, h;
-//    getmaxyx(win, h, w);
-//
-//    // should fill the left half of the
-//    // terminal window with filled block characters
-//    int i, j;
-//    for (i = 0; i < h; i++) {
-//        for (j = 0; j < w/2; j++) {
-//            mvaddch(i, j, L'\u2605');
-//        }
-//    }
-//
-//    refresh(); // show changes
-//    getch();   // wait for user input
-//    endwin();  // kill window
-//
-//    return 1;
-//}

@@ -39,7 +39,7 @@
 //int grid_height = WINDOW_HEIGHT - 2;
 
 #define grid_height 50
-#define grid_width 100
+#define grid_width 50
 
 int grid[grid_height][grid_width]; // current
 int temp[grid_height][grid_width]; // temp

@@ -113,31 +113,6 @@ void do_resize(int dummy) {
 }
 
 int main() {
-
-//    int c = 0;
-//    for (int y = -1; y < 2; y++) {
-//        for (int x = -1; x < 2; x++) {
-////                    c++;
-////                    if (x != 0 && y != 0 && grid[(row + y)][(col + x)] == 1) {
-//            printf(" x = %d, y = %d, c = %d \n", x, y, c);
-//            if ( x != 0 || y != 0) {
-//                printf("c = %d\n", c);
-//                c++;
-////                        mvprintw(row + 1, col + 1, "%d",neighbours);
-//            }
-
-
-
-//            printf(" x = %, y=  %d \n", x != 0, y);
-//            if ( (x != 0) && (y != 0)) {
-//                printf("Zero");
-//                c++;
-////                        mvprintw(row + 1, col + 1, "%d",neighbours);
-//            }
-//        }
-//    }
-//    printf("%d \n", c);
-
     setlocale(LC_ALL, "");
     set_window_size();
     render_screen();

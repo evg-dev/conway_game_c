@@ -20,7 +20,9 @@ void render_menu() {
     mvprintw(1, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "S - start");
     mvprintw(2, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "P - pause");
     mvprintw(3, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "N - start new game");
-    mvprintw(4, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "ESC - exit");
+    mvprintw(4, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "SPACE - next generation");
+    mvprintw(5, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "ESC - exit");
+
 };
 
 
@@ -73,6 +75,9 @@ void render_screen() {
 void handle_input() {
     while (run) {
         int c = getch();
+        if (c) {
+//            mvprintw(20, 20, "%d", c);
+        }
         if (c == KEY_UP) {
 //            int myIntValue = 20;
 //            wchar_t m_reportFileName[256];
@@ -89,7 +94,7 @@ void handle_input() {
         }
 
         if (c == KEY_LEFT) {
-//            mvprintw(x_cursor, y_cursor, "%d", 'c');
+//            mvprintw(20, 20, "%d", c);
         }
 
         if (c == KEY_RIGHT) {

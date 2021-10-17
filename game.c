@@ -92,6 +92,35 @@ int get_neighbours() {
     return neighbours_counter;
 }
 
+int stop_game() {
+    endwin();
+    exit(0);
+//    return 0;
+}
+
+void game_input() {
+    curs_set(0); // Hide cursor
+    int c = getch();
+
+    if (c == KEY_N) {
+        start_game();
+    }
+
+    if (c == KEY_SPACE) {
+        render_grid();
+    }
+
+    if (c == ECS) {
+        stop_game();
+    }
+
+    if (c == KEY_P) {
+//        start_game();
+    }
+    game_input();
+}
+
+
 void render_grid() {
 
     int neighbours;
@@ -141,9 +170,5 @@ void render_grid() {
         }
     }
 
-    curs_set(0); // Hide cursor
-    int c = getch();
-    if (c == KEY_UP) {
-        render_grid();
-    }
+    game_input();
 }

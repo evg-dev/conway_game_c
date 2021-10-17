@@ -14,7 +14,7 @@
 
 //#include <wchar.h>
 //#include <ncurses.h>
-
+int run = 1;
 
 void render_menu() {
     mvprintw(1, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "S - start");
@@ -27,6 +27,7 @@ void render_menu() {
 void render_border(WINDOW *window) {
     start_color();
     init_pair(GREEN_CHAR_PAIR, COLOR_GREEN, COLOR_BLACK);
+    init_pair(GREEN_BACKGROUND_CHAR_PAIR, COLOR_GREEN, COLOR_GREEN);
     getmaxyx(window, height_screen, width_screen);
     attron(COLOR_PAIR(GREEN_CHAR_PAIR));
     // Corners
@@ -63,7 +64,7 @@ void render_screen() {
     refresh();
     render_border(stdscr);
     render_menu();
-    init_game();
+    start_game();
     curs_set(0);
 
     handle_input();
@@ -79,22 +80,22 @@ void handle_input() {
 //            swprintf_s(m_reportFileName, L"%d", myIntValue);
 //
 //            wprintf(L"%s\n", m_reportFileName);
-            mvprintw(x_cursor, y_cursor, "%d", 'a');
+//            mvprintw(x_cursor, y_cursor, "%d", 'a');
 //            getch();
         }
 
         if (c == KEY_DOWN) {
-            mvprintw(x_cursor, y_cursor, "%d", 'b');
+//            mvprintw(x_cursor, y_cursor, "%d", 'b');
         }
 
         if (c == KEY_LEFT) {
-            mvprintw(x_cursor, y_cursor, "%d", 'c');
+//            mvprintw(x_cursor, y_cursor, "%d", 'c');
         }
 
         if (c == KEY_RIGHT) {
-            mvprintw(x_cursor, y_cursor, "%d", 'd');
+//            mvprintw(x_cursor, y_cursor, "%d", 'd');
         } else {
-            mvprintw(x_cursor, y_cursor, "%d", c);
+//            mvprintw(x_cursor, y_cursor, "%d", c);
         }
 
     }
@@ -112,6 +113,31 @@ void do_resize(int dummy) {
 }
 
 int main() {
+
+//    int c = 0;
+//    for (int y = -1; y < 2; y++) {
+//        for (int x = -1; x < 2; x++) {
+////                    c++;
+////                    if (x != 0 && y != 0 && grid[(row + y)][(col + x)] == 1) {
+//            printf(" x = %d, y = %d, c = %d \n", x, y, c);
+//            if ( x != 0 || y != 0) {
+//                printf("c = %d\n", c);
+//                c++;
+////                        mvprintw(row + 1, col + 1, "%d",neighbours);
+//            }
+
+
+
+//            printf(" x = %, y=  %d \n", x != 0, y);
+//            if ( (x != 0) && (y != 0)) {
+//                printf("Zero");
+//                c++;
+////                        mvprintw(row + 1, col + 1, "%d",neighbours);
+//            }
+//        }
+//    }
+//    printf("%d \n", c);
+
     setlocale(LC_ALL, "");
     set_window_size();
     render_screen();

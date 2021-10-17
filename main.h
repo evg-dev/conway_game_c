@@ -19,8 +19,9 @@
 #include "game.h"
 // color pair
 #define GREEN_CHAR_PAIR 1
+#define GREEN_BACKGROUND_CHAR_PAIR 2
 // border symbols
-#define  BORDER_TOP_LEFT L"\u2554"    // ╔
+#define BORDER_TOP_LEFT L"\u2554"    // ╔
 #define BORDER_TOP_RIGHT L"\u2557"    // ╗
 #define BORDER_BOTTOM_RIGHT L"\u255D" // ╝
 #define BORDER_BOTTOM_LEFT L"\u255A"  // ╚
@@ -30,15 +31,21 @@
 #define BORDER_BOTTOM_T L"\u2569"     // ╩
 // window size
 #define WINDOW_WIDTH 150
-#define WINDOW_HEIGHT 50
-#define MENU_WIDTH 49
+#define WINDOW_HEIGHT 52
+#define MENU_WIDTH 47
 #define MENU_WIDTH_IDENT 4
+
+//int grid_width = WINDOW_WIDTH - MENU_WIDTH - 2;
+//int grid_height = WINDOW_HEIGHT - 2;
+
+#define grid_height 50
+#define grid_width 100
+
+int grid[grid_height][grid_width]; // current
+int temp[grid_height][grid_width]; // temp
 
 char string_buffer[32];
 int width_screen, height_screen;
-int x_cursor = 10, y_cursor = 10;
-int run = 1;
-
 
 void handle_input();
 

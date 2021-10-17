@@ -1,6 +1,6 @@
 /*
  * Leaks check $ valgrind --leak-check=full ./game
- * */
+ */
 
 // for ncurses linking
 #define _XOPEN_SOURCE_EXTENDED 1
@@ -8,28 +8,22 @@
 
 #include <stdio.h>
 #include <curses.h>
-//#include <ncurses.h>
 #include <stdlib.h>
 #include <signal.h>
 #include <locale.h>
-#include <wchar.h>
+#include "main.h"
 
-// color pair
-#define GREEN_CHAR_PAIR 1
-// border symbols
-#define  BORDER_TOP_LEFT L"\u2554"    // ╔
-#define BORDER_TOP_RIGHT L"\u2557"    // ╗
-#define BORDER_BOTTOM_RIGHT L"\u255D" // ╝
-#define BORDER_BOTTOM_LEFT L"\u255A"  // ╚
-#define BORDER_HORIZONTAL L"\u2550"   // ═
-#define BORDER_VERTICAL L"\u2551"     // ║
+//#include <wchar.h>
+//#include <ncurses.h>
 
 
-int width_screen, height_screen;
-int x_cursor = 10, y_cursor = 10;
-int run = 1;
+void render_menu() {
+    mvprintw(1, width_screen - 45, "S - start");
+    mvprintw(2, width_screen - 45, "P - pause");
+    mvprintw(3, width_screen - 45, "N - start new game");
+    mvprintw(4, width_screen - 45, "ESC - exit");
+};
 
-void handle_input();
 
 void render_border(WINDOW *window) {
     start_color();
@@ -43,16 +37,23 @@ void render_border(WINDOW *window) {
     mvaddwstr(height_screen - 1, width_screen - 1, BORDER_BOTTOM_RIGHT);
 
     // Top and bottom
-    for (int i = 1; i < width_screen - 1; i++) {
-        mvaddwstr(0, i, BORDER_HORIZONTAL);
-        mvaddwstr(height_screen - 1, i, BORDER_HORIZONTAL);
+    for (int x = 1; x < width_screen - 1; x++) {
+        mvaddwstr(0, x, BORDER_HORIZONTAL);
+        mvaddwstr(height_screen - 1, x, BORDER_HORIZONTAL);
     }
 
-    // Left and right vertical
-    for (int i = 1; i < height_screen - 1; i++) {
-        mvaddwstr(i, 0, BORDER_VERTICAL);
-        mvaddwstr(i, width_screen - 1, BORDER_VERTICAL);
+    // Left and right vertical, right menu
+    for (int y = 1; y < height_screen - 1; y++) {
+        mvhline(y, 0, GREEN_CHAR_PAIR, COLS); // Black background
+        mvaddwstr(y, 0, BORDER_VERTICAL);
+        mvaddwstr(y, width_screen - 1, BORDER_VERTICAL);
+        mvaddwstr(y, width_screen - 49, BORDER_VERTICAL);
     }
+
+    // menu top and bottom T-like border chars
+    mvaddwstr(0, width_screen - 49, BORDER_TOP_T);
+    mvaddwstr(height_screen - 1, width_screen - 49, BORDER_BOTTOM_T);
+
 }
 
 void render_screen() {
@@ -62,6 +63,7 @@ void render_screen() {
     clear();
     refresh();
     render_border(stdscr);
+    render_menu();
     curs_set(0);
 
     handle_input();
@@ -98,6 +100,11 @@ void handle_input() {
     }
 }
 
+void set_window_size() {
+    // system call with params passing
+    sprintf(string_buffer, "resize -s %d %d > nul", WINDOW_HEIGHT, WINDOW_WIDTH);
+    system(string_buffer);
+}
 
 void do_resize(int dummy) {
     endwin();
@@ -106,7 +113,7 @@ void do_resize(int dummy) {
 
 int main() {
     setlocale(LC_ALL, "");
-
+    set_window_size();
     render_screen();
     signal(SIGWINCH, do_resize);
 

@@ -6,7 +6,6 @@
 #define _XOPEN_SOURCE_EXTENDED 1
 #define _GNU_SOURCE
 
-#include <stdio.h>
 #include <curses.h>
 #include <stdlib.h>
 #include <signal.h>
@@ -18,10 +17,10 @@
 
 
 void render_menu() {
-    mvprintw(1, width_screen - 45, "S - start");
-    mvprintw(2, width_screen - 45, "P - pause");
-    mvprintw(3, width_screen - 45, "N - start new game");
-    mvprintw(4, width_screen - 45, "ESC - exit");
+    mvprintw(1, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "S - start");
+    mvprintw(2, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "P - pause");
+    mvprintw(3, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "N - start new game");
+    mvprintw(4, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "ESC - exit");
 };
 
 
@@ -47,12 +46,12 @@ void render_border(WINDOW *window) {
         mvhline(y, 0, GREEN_CHAR_PAIR, COLS); // Black background
         mvaddwstr(y, 0, BORDER_VERTICAL);
         mvaddwstr(y, width_screen - 1, BORDER_VERTICAL);
-        mvaddwstr(y, width_screen - 49, BORDER_VERTICAL);
+        mvaddwstr(y, width_screen - MENU_WIDTH, BORDER_VERTICAL);
     }
 
     // menu top and bottom T-like border chars
-    mvaddwstr(0, width_screen - 49, BORDER_TOP_T);
-    mvaddwstr(height_screen - 1, width_screen - 49, BORDER_BOTTOM_T);
+    mvaddwstr(0, width_screen - MENU_WIDTH, BORDER_TOP_T);
+    mvaddwstr(height_screen - 1, width_screen - MENU_WIDTH, BORDER_BOTTOM_T);
 
 }
 
@@ -64,6 +63,7 @@ void render_screen() {
     refresh();
     render_border(stdscr);
     render_menu();
+    init_game();
     curs_set(0);
 
     handle_input();

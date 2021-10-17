@@ -2,6 +2,9 @@
  * Leaks check $ valgrind --leak-check=full ./game
  * */
 
+#ifndef GAME_MAIN_H
+#define GAME_MAIN_H
+
 // for ncurses linking
 #define _XOPEN_SOURCE_EXTENDED 1
 #define _GNU_SOURCE
@@ -13,7 +16,7 @@
 #include <signal.h>
 #include <locale.h>
 #include <wchar.h>
-
+#include "game.h"
 // color pair
 #define GREEN_CHAR_PAIR 1
 // border symbols
@@ -28,6 +31,8 @@
 // window size
 #define WINDOW_WIDTH 150
 #define WINDOW_HEIGHT 50
+#define MENU_WIDTH 49
+#define MENU_WIDTH_IDENT 4
 
 char string_buffer[32];
 int width_screen, height_screen;
@@ -46,3 +51,5 @@ void do_resize(int dummy);
 void set_window_size();
 
 void render_border(WINDOW *window);
+
+#endif //GAME_MAIN_H

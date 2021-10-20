@@ -21,7 +21,7 @@
 #define GREEN_CHAR_PAIR 1
 #define GREEN_BACKGROUND_CHAR_PAIR 2
 // border symbols
-#define BORDER_TOP_LEFT L"\u2554"    // ╔
+#define BORDER_TOP_LEFT L"\u2554"     // ╔
 #define BORDER_TOP_RIGHT L"\u2557"    // ╗
 #define BORDER_BOTTOM_RIGHT L"\u255D" // ╝
 #define BORDER_BOTTOM_LEFT L"\u255A"  // ╚
@@ -35,9 +35,6 @@
 #define MENU_WIDTH 47
 #define MENU_WIDTH_IDENT 4
 
-//int grid_width = WINDOW_WIDTH - MENU_WIDTH - 2;
-//int grid_height = WINDOW_HEIGHT - 2;
-
 #define grid_height 50
 #define grid_width 50
 
@@ -45,9 +42,7 @@ int grid[grid_height][grid_width]; // current
 int temp[grid_height][grid_width]; // temp
 
 char string_buffer[32];
-int width_screen, height_screen;
-
-void handle_input();
+int width_screen, height_screen, generation, is_pause;
 
 void render_screen();
 

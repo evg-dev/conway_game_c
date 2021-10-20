@@ -10,19 +10,28 @@
 #include <stdlib.h>
 #include <signal.h>
 #include <locale.h>
+#include <zconf.h>
 #include "main.h"
 
 //#include <wchar.h>
 //#include <ncurses.h>
-int run = 1;
+//run = 1;
 
 void render_menu() {
-    mvprintw(1, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "S - start");
-    mvprintw(2, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "P - pause");
-    mvprintw(3, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "N - start new game");
-    mvprintw(4, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "SPACE - next generation");
-    mvprintw(5, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "ESC - exit");
+    print_generation();
 
+    mvprintw(21, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "    ###############################");
+    mvprintw(22, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "    #    Conway's Game of Life    #");
+    mvprintw(23, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "    ###############################");
+
+
+    mvprintw(40, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "               Controls");
+
+    mvprintw(44, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "S - start");
+    mvprintw(45, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "P - pause");
+    mvprintw(46, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "N - start new game");
+    mvprintw(47, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "SPACE - next generation");
+    mvprintw(48, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "ESC - exit");
 };
 
 
@@ -60,50 +69,15 @@ void render_border(WINDOW *window) {
 
 void render_screen() {
     stdscr = initscr();
+    nodelay(stdscr, true);  // no delay for getch
     keypad(stdscr, TRUE);
-    noecho();
+    noecho();   // hide echo
     clear();
     refresh();
     render_border(stdscr);
     render_menu();
     start_game();
     curs_set(0);
-
-    handle_input();
-}
-
-void handle_input() {
-    while (run) {
-        int c = getch();
-        if (c) {
-//            mvprintw(20, 20, "%d", c);
-        }
-        if (c == KEY_UP) {
-//            int myIntValue = 20;
-//            wchar_t m_reportFileName[256];
-//
-//            swprintf_s(m_reportFileName, L"%d", myIntValue);
-//
-//            wprintf(L"%s\n", m_reportFileName);
-//            mvprintw(x_cursor, y_cursor, "%d", 'a');
-//            getch();
-        }
-
-        if (c == KEY_DOWN) {
-//            mvprintw(x_cursor, y_cursor, "%d", 'b');
-        }
-
-        if (c == KEY_LEFT) {
-//            mvprintw(20, 20, "%d", c);
-        }
-
-        if (c == KEY_RIGHT) {
-//            mvprintw(x_cursor, y_cursor, "%d", 'd');
-        } else {
-//            mvprintw(x_cursor, y_cursor, "%d", c);
-        }
-
-    }
 }
 
 void set_window_size() {
@@ -124,6 +98,6 @@ int main() {
     signal(SIGWINCH, do_resize);
 
     getch();
-    endwin();                  // close ncurses
+    endwin(); // close ncurses
     return 0;
 }

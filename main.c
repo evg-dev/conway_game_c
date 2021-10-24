@@ -20,9 +20,9 @@ void render_menu() {
     mvprintw(4, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "    ###############################");
 
 
-    mvprintw(30, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "            Cursor state");
+    mvprintw(29, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "            Cursor state");
 
-    mvprintw(32, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "╳╳ - set IS_NOT_LIFE");
+    mvprintw(31, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "╳╳ - set IS_NOT_LIFE");
     mvprintw(33, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "╬╬ - set LIFE");
 
     mvprintw(35, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "               Controls");
@@ -34,12 +34,11 @@ void render_menu() {
     mvprintw(41, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "→ - cursor RIGHT");
     mvprintw(42, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "↓ - cursor DOWN");
 
-    mvprintw(44, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "S - start");
-    mvprintw(45, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "P - pause");
-    mvprintw(46, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "N - start new game");
+    mvprintw(44, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "P - pause");
+    mvprintw(45, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "N - start new game");
 
-    mvprintw(48, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "SPACE - next generation");
-    mvprintw(49, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "ESC - exit");
+    mvprintw(47, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "SPACE - next generation");
+    mvprintw(48, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "ESC - exit");
 };
 
 void print_cursor(int cursor_x, int cursor_y) {

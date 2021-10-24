@@ -7,11 +7,10 @@
 #define _GNU_SOURCE
 #define IS_LIFE 1;
 #define IS_NOT_LIFE 0;
-#define IS_LIFE_SIMBOL "▒" //▒
+#define IS_LIFE_SIMBOL "▒"
 #define IS_NOT_LIFE__SIMBOL " "
 #define  KEY_SPACE 32
 #define  KEY_N 110
-#define  KEY_S 32
 #define  KEY_ENT 10
 #define  KEY_P 112
 #define  ECS 27

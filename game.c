@@ -226,8 +226,6 @@ void game_input() {
         curs_set(0);
         game_input();
     } else {
-
-        mvprintw(12, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), " %d ", c);
         // await input on pause
         if (is_pause) {
             game_input();
@@ -278,7 +276,9 @@ void render_grid() {
     print_generation();
     curs_set(0); // Hide cursor
     refresh();
-    if (!is_pause) {
+    if (is_pause) {
+        print_cursor(cursor_x, cursor_y);
+    } else {
         usleep(500000);
     }
     game_input();

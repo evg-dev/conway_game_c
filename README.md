@@ -24,7 +24,7 @@ install ncurses
 apt-get install libncurses5-dev libncursesw5-dev
 ```
 
-Use [CmakeLilst.txt](https://github.com/evg-dev/conway_game_life/blob/master/cmake-build-release/CmakeLilst.txt) or [manual_compile.sh](https://github.com/evg-dev/conway_game_life/blob/master/manual_compile.sh)
+Use [CmakeLilst.txt](https://github.com/evg-dev/conway_game_life/blob/master/CMakeLists.txt) or [release_compile.sh](https://github.com/evg-dev/conway_game_life/blob/master/CMakeLists.txt)
 
 
 ##Binary

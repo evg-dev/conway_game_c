@@ -99,7 +99,7 @@ void render_screen() {
 void set_window_size() {
     // system call with params passing
     sprintf(string_buffer, "resize -s %d %d > nul", WINDOW_HEIGHT, WINDOW_WIDTH);
-    system(string_buffer);
+    int res = system(string_buffer);
 }
 
 void do_resize(int dummy) {

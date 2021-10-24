@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.15)
-project(game C)
+project(game_life)
 
 set(CMAKE_C_STANDARD 99)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON -G Unix Makefiles)
 
 find_package(Curses REQUIRED)
 include_directories(${CURSES_INCLUDE_DIR})

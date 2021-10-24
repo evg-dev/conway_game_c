@@ -29,14 +29,16 @@
 #define BORDER_VERTICAL L"\u2551"     // ║
 #define BORDER_TOP_T L"\u2566"        // ╦
 #define BORDER_BOTTOM_T L"\u2569"     // ╩
+#define DELETE_SYMBOL L"\u2573"       // ╳
+#define INSERT_SYMBOL L"\u256C"       // ╬
 // window size
 #define WINDOW_WIDTH 150
-#define WINDOW_HEIGHT 52
+#define WINDOW_HEIGHT 53
 #define MENU_WIDTH 47
 #define MENU_WIDTH_IDENT 4
 
-#define grid_height 50
-#define grid_width 50
+#define grid_height 51
+#define grid_width 51
 
 int grid[grid_height][grid_width]; // current
 int temp[grid_height][grid_width]; // temp
@@ -51,6 +53,8 @@ void render_menu();
 void do_resize(int dummy);
 
 void set_window_size();
+
+void print_cursor(int cursor_x, int cursor_y);
 
 void render_border(WINDOW *window);
 

@@ -10,30 +10,47 @@
 #include <stdlib.h>
 #include <signal.h>
 #include <locale.h>
-#include <zconf.h>
 #include "main.h"
-
-//#include <wchar.h>
-//#include <ncurses.h>
-//run = 1;
 
 void render_menu() {
     print_generation();
 
-    mvprintw(21, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "    ###############################");
-    mvprintw(22, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "    #    Conway's Game of Life    #");
-    mvprintw(23, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "    ###############################");
+    mvprintw(2, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "    ###############################");
+    mvprintw(3, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "    #    Conway's Game of Life    #");
+    mvprintw(4, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "    ###############################");
 
 
-    mvprintw(40, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "               Controls");
+    mvprintw(30, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "            Cursor state");
+
+    mvprintw(32, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "╳╳ - set IS_NOT_LIFE");
+    mvprintw(33, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "╬╬ - set LIFE");
+
+    mvprintw(35, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "               Controls");
+
+    mvprintw(37, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "ENTER - change point state");
+
+    mvprintw(39, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "↑ - cursor UP");
+    mvprintw(40, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "← - cursor LEFT");
+    mvprintw(41, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "→ - cursor RIGHT");
+    mvprintw(42, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "↓ - cursor DOWN");
 
     mvprintw(44, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "S - start");
     mvprintw(45, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "P - pause");
     mvprintw(46, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "N - start new game");
-    mvprintw(47, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "SPACE - next generation");
-    mvprintw(48, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "ESC - exit");
+
+    mvprintw(48, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "SPACE - next generation");
+    mvprintw(49, width_screen - (MENU_WIDTH - MENU_WIDTH_IDENT), "ESC - exit");
 };
 
+void print_cursor(int cursor_x, int cursor_y) {
+    if (grid[cursor_y - 1][cursor_x - 1]) {
+        mvaddwstr(cursor_y, cursor_x * 2 - 1, DELETE_SYMBOL);
+        mvaddwstr(cursor_y, cursor_x * 2, DELETE_SYMBOL);
+    } else {
+        mvaddwstr(cursor_y, cursor_x * 2 - 1, INSERT_SYMBOL);
+        mvaddwstr(cursor_y, cursor_x * 2, INSERT_SYMBOL);
+    }
+}
 
 void render_border(WINDOW *window) {
     start_color();

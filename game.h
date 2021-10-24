@@ -1,5 +1,4 @@
 #include <curses.h>
-#include <ncursesw/ncurses.h>
 
 #ifndef GAME_GAME_H
 #define GAME_GAME_H
@@ -13,6 +12,7 @@
 #define  KEY_SPACE 32
 #define  KEY_N 110
 #define  KEY_S 32
+#define  KEY_ENT 10
 #define  KEY_P 112
 #define  ECS 27
 
@@ -26,6 +26,8 @@ void start_game();
 
 void game_input();
 
+void print_actual_grid(bool set_temp);
+
 void render_grid();
 
 int get_neighbours();
@@ -34,8 +36,10 @@ int stop_game();
 
 void run_game();
 
-void render_pause();
+void input_grid_points();
 
-void render_no_pause();
+void print_pause();
+
+void print_no_pause();
 
 #endif //GAME_GAME_H
